@@ -2,8 +2,11 @@ from forestFire import Carte
 
 class forestFireSimulator:
     def __init__(self, carte):
-        self.carte = carte
-        carte.generer_carte(0.6)
+        if carte is None:
+            self.carte = Carte()
+            self.carte.generer_carte(0.6)
+        else:
+            self.carte = carte
 
     def afficher_carte(self):
         self.carte.afficher()
@@ -27,3 +30,4 @@ class forestFireSimulator:
         print("\nCarte après incendie :")
         for ligne in grille:
             print(' '.join(ligne))
+        return grille
