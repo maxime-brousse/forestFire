@@ -5,7 +5,8 @@ class Carte:
     def __init__(self, taille=5):
         self.taille = taille
         self.elements_possibles = ['N', 'A', 'E']
-        self.grille = self.generer_carte()
+        self.grille = None
+        self.generer_carte()
 
     def generer_carte(self, proba_arbre=0.6):
         proba_eau = 0.2
