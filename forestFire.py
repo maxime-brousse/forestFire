@@ -30,3 +30,38 @@ class Carte:
     def afficher(self):
         for ligne in self.grille:
             print(' '.join(ligne))
+
+    def to_html(self):
+        couleurs = {
+            'N': '#ffffff',  # blanc pour vide
+            'A': '#228B22',  # vert forêt pour arbre
+            'E': '#1E90FF'  # bleu pour eau
+        }
+
+        html = ['<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">']
+        for ligne in self.grille:
+            html.append('<tr>')
+            for case in ligne:
+                couleur = couleurs.get(case, '#000')  # noir par défaut si caractère inconnu
+                html.append(
+                    f'<td style="background-color:{couleur}; width:30px; height:30px; text-align:center;">{case}</td>')
+            html.append('</tr>')
+        html.append('</table>')
+        return '\n'.join(html)
+
+    def exporter_html(self, nom_fichier="html/carte.html"):
+        html_complet = f"""
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Carte Générée</title>
+    </head>
+    <body>
+        <h2>Carte aléatoire {self.taille}x{self.taille}</h2>
+        {self.to_html()}
+    </body>
+    </html>
+    """
+        with open(nom_fichier, "w", encoding="utf-8") as f:
+            f.write(html_complet)
