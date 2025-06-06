@@ -11,7 +11,9 @@ class Carte:
         proba_eau = 0.2
         proba_vide = 1 - proba_arbre - proba_eau
         if proba_vide < 0:
-            raise ValueError("Les probabilités sont trop élevées. Elles doivent totaliser au maximum 1.")
+            raise ValueError("Les probabilités sont trop failbe. Elles doivent totaliser au maximum 1.")
+        if proba_vide > 1 or proba_arbre < 0:
+            raise ValueError("Les probabilités sont trop élévé. Elle doivent totaliser au maximun 1")
 
         # Construction de la liste pondérée
         elements = (
