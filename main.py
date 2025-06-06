@@ -1,5 +1,6 @@
 # Exemple d'utilisation
 from forestFire import Carte
+from forestFireSimulator import forestFireSimulator
 
 if __name__ == "__main__":
     carte = Carte()
