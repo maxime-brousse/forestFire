@@ -2,6 +2,7 @@ from forestFire import Carte
 from itertools import combinations
 from copy import deepcopy
 
+
 class forestFireSimulator:
     def __init__(self, carte):
         if carte is None:
@@ -11,7 +12,7 @@ class forestFireSimulator:
             self.carte = carte
 
     def afficher_carte(self):
-        self.carte.exporter_html("html/carte_apres_feu.html")
+        self.carte.exporter_html()
 
     def propager_feu(self, x, y):
         taille = self.carte.taille
@@ -59,8 +60,10 @@ class forestFireSimulator:
     def deboiser_optimise(self, x, y, max_coupes=3):
         if self.carte.grille[x][y] != 'F':
             print("Point de départ invalide (pas un feu)")
+            IndexError("Point de départ invalide (pas un feu)")
             return
 
+        grille_avant = self.carte.grille
         taille = self.carte.taille
         arbres = [
             (i, j)
@@ -76,7 +79,7 @@ class forestFireSimulator:
             for combo in combinations(arbres, n):
                 test_grille = deepcopy(self.carte.grille)
                 for i, j in combo:
-                    test_grille[i][j] = 'N'  # on coupe l’arbre
+                    test_grille[i][j] = 'D'  # comme déboisement
                 propagation = self.compter_propagation(test_grille, x, y)
                 if propagation < propagation_min:
                     propagation_min = propagation
@@ -89,3 +92,4 @@ class forestFireSimulator:
             print("Aucun arbre coupé. Déboisement inutile.")
 
         self.carte.grille = meilleure_grille
+        self.carte.exporter_apres_html(grille_avant, meilleure_combinaison, max_coupes, propagation_min, "html/carte_deboisement.html")
